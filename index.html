@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Git Quest Log</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Git Quest Log</h1>
+
+    <form id="quest-form">
+      <input id="quest-input" type="text" placeholder="Add a new quest…" required />
+      <button type="submit">Add</button>
+    </form>
+
+    <ul id="quest-list" aria-live="polite"></ul>
+
+    <section class="tips">
+      <h2>Tips</h2>
+      <ul>
+        <li>Use short, actionable quests.</li>
+        <li>Commit after a tiny win.</li>
+        <li>Push when main is stable.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
