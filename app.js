@@ -2,6 +2,8 @@ const STORAGE_KEY = "git-quest-log";
 const $form = document.getElementById("quest-form");
 const $input = document.getElementById("quest-input");
 const $list = document.getElementById("quest-list");
+const $clear = document.getElementById("clear-all");
+const $counter = document.getElementById("counter");
 
 function load() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
@@ -10,16 +12,15 @@ function load() {
 function save(items) { localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); }
 function render(items) {
   $list.innerHTML = "";
+
   items.forEach((quest, idx) => {
-    // Support old saves (plain text) by upgrading to object
-    if (typeof quest === "string") {
+    if (typeof quest === "string") { // upgrade old saves
       quest = { text: quest, done: false };
       items[idx] = quest;
     }
 
     const li = document.createElement("li");
 
-    // Create checkbox for done/undone
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = quest.done;
@@ -29,12 +30,10 @@ function render(items) {
       render(items);
     });
 
-    // Quest text
     const span = document.createElement("span");
     span.textContent = quest.text;
     if (quest.done) span.style.textDecoration = "line-through";
 
-    // Delete button
     const del = document.createElement("button");
     del.textContent = "Delete";
     del.addEventListener("click", () => {
@@ -48,6 +47,19 @@ function render(items) {
     li.appendChild(del);
     $list.appendChild(li);
   });
+
+  // Update Clear button + counter
+  const count = items.length;
+  if ($clear) {
+    $clear.disabled = count === 0;
+    $clear.setAttribute("aria-disabled", String(count === 0));
+  }
+  if ($counter) {
+    const remaining = items.filter(i => !i.done).length;
+    $counter.textContent = count === 0
+      ? "No quests yet — add your first!"
+      : `${remaining} remaining • ${count} total`;
+  }
 }
 
 function escapeHtml(s) {
@@ -69,3 +81,13 @@ $form.addEventListener("submit", (e) => {
   $input.value = "";
   $input.focus();
 });
+if ($clear) {
+  $clear.addEventListener("click", () => {
+    if (!state.length) return;
+    // Simple confirm for now (keeps it beginner-friendly)
+    if (!confirm("Clear all quests? This cannot be undone.")) return;
+    state.length = 0;     // wipe in-place
+    save(state);
+    render(state);
+  });
+}
