@@ -10,13 +10,22 @@
   <main class="container">
     <h1>Git Quest Log</h1>
 
+    <!-- Add Quest Form -->
     <form id="quest-form">
       <input id="quest-input" type="text" placeholder="Add a new quest…" required />
       <button type="submit">Add</button>
     </form>
 
+    <!-- New Controls Bar -->
+    <div class="controls">
+      <button id="clear-all" type="button" aria-disabled="true">Clear All</button>
+      <span id="counter" aria-live="polite"></span>
+    </div>
+
+    <!-- Quest List -->
     <ul id="quest-list" aria-live="polite"></ul>
 
+    <!-- Helpful Tips -->
     <section class="tips">
       <h2>Tips</h2>
       <ul>
@@ -28,5 +37,5 @@
   </main>
 
   <script src="app.js"></script>
-</body>
-</html>
+  </body>
+  </html>
