@@ -16,14 +16,25 @@
       <button type="submit">Add</button>
     </form>
 
-    <!-- New Controls Bar -->
-    <div class="controls">
-      <button id="clear-all" type="button" aria-disabled="true">Clear All</button>
-      <span id="counter" aria-live="polite"></span>
+    <!-- Kanban Board -->
+    <div class="board">
+      <div class="column" data-status="backlog">
+        <h2>Backlog</h2>
+        <ul id="backlog-list" class="task-list"></ul>
+      </div>
+      <div class="column" data-status="todo">
+        <h2>To Do</h2>
+        <ul id="todo-list" class="task-list"></ul>
+      </div>
+      <div class="column" data-status="doing">
+        <h2>Doing</h2>
+        <ul id="doing-list" class="task-list"></ul>
+      </div>
+      <div class="column" data-status="done">
+        <h2>Done</h2>
+        <ul id="done-list" class="task-list"></ul>
+      </div>
     </div>
-
-    <!-- Quest List -->
-    <ul id="quest-list" aria-live="polite"></ul>
 
     <!-- Helpful Tips -->
     <section class="tips">
@@ -37,5 +48,5 @@
   </main>
 
   <script src="app.js"></script>
-  </body>
-  </html>
+</body>
+</html>
